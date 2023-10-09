@@ -7,8 +7,8 @@ uniform float b_w_switch;
 uniform int luma_switch;
 
 void main() {
-    // vec4 color = texture2D(tex0, texCoordVarying);
-    vec4 color = vec4(1.0, 0.0, 0.0, 1.0); // Directly set the color to red
+    vec4 color = texture2D(tex0, texCoordVarying);
+    // vec4 color = vec4(1.0, 0.0, 0.0, 1.0); // Directly set the color to red
     float bright = 0.33 * color.r + 0.5 * color.g + 0.16 * color.b;
 
     // Grayscale effect

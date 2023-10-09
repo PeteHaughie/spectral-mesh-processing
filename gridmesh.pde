@@ -1,46 +1,27 @@
-void gridmesh(int gridsize){
-    //mesh1.clearVertices();
-    //mesh1.clearTexCoords();
-    //ofVec3f Q_vertex1;
-    //ofVec3f Q_vertex2;
-    //ofVec3f Q_vertex3;
-    //ofVec3f Q_vertex4;
+void gridMeshStrip(int gridsize) {
+  mesh1 = createShape();
+  
+  for( int i = 0; i < gridsize - 1; i++ ) {  // We go to gridsize-1 because we're dealing with pairs of rows
+    mesh1.beginShape( TRIANGLE_STRIP );
+    mesh1.texture( cam );  // Assuming you've loaded a texture into myTexture
     
-    //ofVec2f Q_tex1;
-    //ofVec2f Q_tex2;
-    //ofVec2f Q_tex3;
-    //ofVec2f Q_tex4;
+    float y0 = i * height / gridsize;
+    float y1 = ( i + 1 ) * height / gridsize;
     
-    //for( int i = 0; i < gridsize; i++ ){
-    //    for( int j = 0 ;j < gridsize; j++ ){
-    //        int x0 = j * width/gridsize;
-    //        int x1 = ( j + 1 ) * width / gridsize;
-    //        int y0 = i * height / gridsize;
-    //        int y1 = ( i + 1 ) * height / gridsize;
-            
-    //        Q_vertex1.set( x0, y0, 0);
-    //        Q_vertex2.set( x1, y0, 0);
-    //        Q_vertex3.set( x1, y1, 0);
-    //        Q_vertex4.set( x0, y1, 0);
-            
-    //        Q_tex1.set( x0, y0 );
-    //        Q_tex2.set( x1, y0 );
-    //        Q_tex3.set( x1, y1 );
-    //        Q_tex4.set( x0, y1 );
+    float texY0 = i * ( float ) cam.height / gridsize;
+    float texY1 = ( i + 1 ) * ( float ) cam.height / gridsize;
 
-    //        mesh1.addVertex( Q_vertex1 );
-    //        mesh1.addVertex( Q_vertex2 );
-    //        mesh1.addVertex( Q_vertex4 );
-    //        mesh1.addVertex( Q_vertex3 );
-            
-    //        //then corresponding texture coordinates one for each vertext
-    //        mesh1.addTexCoord( Q_tex1 );
-    //        mesh1.addTexCoord( Q_tex2 );
-    //        mesh1.addTexCoord( Q_tex4 );
-    //        mesh1.addTexCoord( Q_tex3 );
-           
-    //    } //endxfor
-    //} //endyfor
-    //mesh1.setMode( OF_PRIMITIVE_TRIANGLE_STRIP );
-    //vbo_mesh1 = mesh1;
+    for( int j = 0; j < gridsize; j++ ) {
+      float x0 = j * width / gridsize;
+      float texX0 = j * ( float ) cam.width / gridsize;
+
+      // Add vertices for the top and bottom of the current quad
+      mesh1.vertex( x0, y0, texX0, texY0 );
+      mesh1.vertex( x0, y1, texX0, texY1 );
+    }
+    mesh1.endShape();
+  }
+
+  vbo_mesh1 = mesh1;
+  shape( mesh1 );
 }

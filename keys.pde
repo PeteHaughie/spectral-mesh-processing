@@ -1,4 +1,5 @@
 void keyPressed() {
+    println(key);
     if( key == 'a' ){ 
       az += 0.01;
     }
@@ -141,10 +142,10 @@ void keyPressed() {
     }
 
     if( key == '9' ){
-      verticalLinemesh( scale );
+      verticalLineMesh( scale );
     }
     if( key == '0' ){
-      horizontalLinemesh( scale );
+      horizontalLineMesh( scale );
     }
     if( key == '-' ){
       trianglemesh( scale );
@@ -180,6 +181,6 @@ void keyPressed() {
    }
   if (key == 'i') {
     invertValue = (invertValue == 1.0) ? 0.0 : 1.0;
-    myShader.set("invert_switch", invertValue);
+    shaderDisplace.set("invert_switch", invertValue);
   }
 }
